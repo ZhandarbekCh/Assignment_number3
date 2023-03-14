@@ -30,19 +30,6 @@ public class RegisterActivity extends AppCompatActivity {
     AppCompatEditText editTextEmail,editTextPassword;
     Button buttonReg;
     FirebaseAuth mAuth;
-    ProgressBar progressBar;
-
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent4 = new Intent(getApplicationContext(),WelcomeActivity.class);
-            startActivity(intent4);
-            finish();
-        }
-    }
-
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -54,7 +41,7 @@ public class RegisterActivity extends AppCompatActivity {
         editTextEmail= findViewById(R.id.email);
         editTextPassword = findViewById(R.id.password);
         buttonReg = findViewById(R.id.confirmButton);
-        progressBar = findViewById(R.id.progressBar);
+
 
         TextView btn=findViewById(R.id.HaveAccount);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressBar.setVisibility(View.VISIBLE);
+
                 String email,password;
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
@@ -83,17 +70,17 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                mAuth.signInWithEmailAndPassword(email, password)
+                mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
+
                                 if (task.isSuccessful()) {
                                     Toast.makeText(RegisterActivity.this, "Account created.",
                                             Toast.LENGTH_SHORT).show();
                                     Intent intent6 = new Intent(getApplicationContext(), LoginActivity.class);
                                     startActivity(intent6);
-                                    finish();
+
                                 } else {
                                     // If sign in fails, display a message to the user.
 

@@ -27,19 +27,6 @@ public class LoginActivity extends AppCompatActivity {
     AppCompatEditText editTextEmail,editTextPassword;
     Button buttonLogin;
     FirebaseAuth mAuth;
-    ProgressBar progressBar;
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent4 = new Intent(getApplicationContext(),WelcomeActivity.class);
-            startActivity(intent4);
-            finish();
-        }
-    }
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -51,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextEmail= findViewById(R.id.email2);
         editTextPassword = findViewById(R.id.password2);
         buttonLogin = findViewById(R.id.login2);
-        progressBar = findViewById(R.id.progressBar);
+
 
         TextView register2 = (TextView) findViewById(R.id.register2);
         View.OnClickListener oclRegister2= new View.OnClickListener() {
@@ -68,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                progressBar.setVisibility(View.VISIBLE);
+
                 String email,password;
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
@@ -83,11 +70,10 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                mAuth.createUserWithEmailAndPassword(email, password)
+                mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
                                 if (task.isSuccessful()) {
                                     Toast.makeText(LoginActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
                                     Intent intent4 = new Intent(getApplicationContext(),WelcomeActivity.class);

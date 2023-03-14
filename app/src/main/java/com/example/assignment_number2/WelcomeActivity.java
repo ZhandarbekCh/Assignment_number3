@@ -17,8 +17,9 @@ public class WelcomeActivity extends AppCompatActivity {
 
     FirebaseAuth auth;
     FirebaseUser user;
+    Button button4;
+    Button button8;
 
-    private Button button3;
 
 
     @Override
@@ -27,6 +28,8 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.welcome);
 
         auth = FirebaseAuth.getInstance();
+        button4 = findViewById(R.id.logout);
+        button8 = findViewById(R.id.nextpg);
         user = auth.getCurrentUser();
         if(user == null){
             Intent intent5 = new Intent(getApplicationContext(), LoginActivity.class);
@@ -34,19 +37,30 @@ public class WelcomeActivity extends AppCompatActivity {
             finish();
         }
 
-        button3 = (Button) findViewById(R.id.men_btn);
-        button3.setOnClickListener(new View.OnClickListener() {
+
+
+        button4.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                openMenPageActivity();
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                Intent intent5 = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent5);
+                finish();
             }
         });
 
 
+        button8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFirstpageActivity();
+            }
+        });
     }
 
-    public void openMenPageActivity() {
-        Intent intent7 = new Intent(this, MenPageActivity.class);
-        startActivity(intent7);
+    public void openFirstpageActivity(){
+        Intent intent10 = new Intent(this,FirstpageActivity.class);
+        startActivity(intent10);
     }
+
 }
