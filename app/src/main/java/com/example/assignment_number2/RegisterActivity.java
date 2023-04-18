@@ -1,6 +1,8 @@
 package com.example.assignment_number2;
 
-import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
+
+import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;

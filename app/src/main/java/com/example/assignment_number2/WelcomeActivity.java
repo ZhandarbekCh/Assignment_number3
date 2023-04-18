@@ -60,6 +60,10 @@ public class WelcomeActivity extends AppCompatActivity {
 
     public void openFirstpageActivity(){
         Intent intent10 = new Intent(this,FirstpageActivity.class);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) return;
+        Boolean isAdmin = user.getEmail().equals("qwerty@gmail.com");
+        intent10.putExtra("IS_ADMIN", true);
         startActivity(intent10);
     }
 
